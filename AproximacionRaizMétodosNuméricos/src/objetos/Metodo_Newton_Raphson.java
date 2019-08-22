@@ -47,5 +47,12 @@ public class Metodo_Newton_Raphson {
 			return this.puntoI+0.0000001f;
 		}
 	}
+	
+	public void imprimir() {
+		System.out.println("xi\tf(xi)\tdiff(xi)\txi+1");
+		for (ColumnasNewtonRaphson columnasNewtonRaphson : filas) {
+			columnasNewtonRaphson.toString();
+		}
+	}
 
 }

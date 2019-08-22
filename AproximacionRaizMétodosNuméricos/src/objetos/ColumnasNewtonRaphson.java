@@ -42,6 +42,13 @@ public class ColumnasNewtonRaphson {
 	public Float getXi() {
 		return xi;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("%f\t%f\t%f\t%f", this.xi, this.fxi, this.diffxi, this.xj);
+	}
+	
 	
 
 }
