@@ -3,6 +3,7 @@ package gui;
 import interfaces.Clickeable;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,8 +26,10 @@ public class PnlAbajo extends JPanel{
                         click.limpiar(); //To change body of generated methods, choose Tools | Templates.
                     }
                 });
+                Font fuente = new Font("Verdana", 0, 12);
 		super.setPreferredSize(new Dimension(550, 50));
 		limpiar.setBounds(445, 15, 80, 21);
+                limpiar.setFont(fuente);
 		super.add(limpiar);
 		super.setVisible(true);
 	}

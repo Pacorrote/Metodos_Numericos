@@ -68,11 +68,6 @@ public class PnlInsercion extends JPanel{
 		this.btnCalcular.setFont(fuente);
 		this.txtPuntoI.setFont(fuente);
 		this.txtError.setFont(fuente);
-		this.lblPuntoI.setForeground(Color.BLACK);
-		this.lblError.setForeground(Color.BLACK);
-		this.btnCalcular.setForeground(Color.BLACK);
-		this.txtPuntoI.setForeground(Color.BLACK);
-		this.txtError.setForeground(Color.BLACK);
                 super.add(this.lblPuntoI);
 		super.add(this.txtPuntoI);
 		super.add(this.lblError);
