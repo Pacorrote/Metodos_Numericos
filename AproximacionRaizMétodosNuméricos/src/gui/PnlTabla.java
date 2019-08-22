@@ -30,7 +30,7 @@ public class PnlTabla extends JPanel{
 		jS.setPreferredSize(new Dimension(540, 467));
 		super.add(jS);
 		super.setBackground(Color.WHITE);
-		super.setVisible(true);
+		super.setVisible(false);
 		updateUI();
 	}
 

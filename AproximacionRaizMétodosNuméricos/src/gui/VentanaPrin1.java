@@ -1,5 +1,6 @@
 package gui;
 
+import interfaces.Calculable;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -23,8 +24,15 @@ public class VentanaPrin1 extends JFrame{
 		super.setBackground(Color.orange);
 		super.setLayout(new BorderLayout(8, 1));
 		super.setLocationRelativeTo(null);
-		controlador = new Metodo_Newton_Raphson(0f, 0.01f);
-		tabla = new PnlTabla(controlador.getFilas());
+                controlador = new Metodo_Newton_Raphson(Float.parseFloat(pnlInsercion.getTxtPuntoI().getText()), Float.parseFloat(pnlInsercion.getTxtError().getText()));
+                tabla = new PnlTabla(controlador.getFilas());
+                pnlInsercion.setFuego(new Calculable() {
+                    @Override
+                    public void buscarRaiz() {
+                      //To change body of generated methods, choose Tools | Templates.
+                      controlador.Metodo();
+                    }
+                });
 		super.add(pnlInsercion, BorderLayout.NORTH);
 		super.add(tabla, BorderLayout.CENTER);
 		super.add(pnlAbajo, BorderLayout.SOUTH);
