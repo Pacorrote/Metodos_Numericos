@@ -10,6 +10,8 @@ import javax.swing.JTextField;
 
 import objetos.Metodo_Newton_Raphson;
 import interfaces.Clickeable;
+import javax.swing.JOptionPane;
+import objetos.CasillaVaciaException;
 
 public class VentanaPrin1 extends JFrame{
 
@@ -27,9 +29,30 @@ public class VentanaPrin1 extends JFrame{
                 pnlInsercion.setFuego( new Clickeable() {
                     @Override
                     public void buscarRaiz() {
-                        controlador = new Metodo_Newton_Raphson(Float.parseFloat(pnlInsercion.getTxtError().getText()), Float.parseFloat(pnlInsercion.getTxtError().getText()));
-                        tabla.crearModelo(controlador.getFilas());
-                        tabla.setVisible(true); //To change body of generated methods, choose Tools | Templates.
+                        try {
+                            if(!pnlInsercion.getTxtError().getText().isEmpty() || !pnlInsercion.getTxtError().getText().isEmpty()){
+                                controlador = new Metodo_Newton_Raphson(Float.parseFloat(pnlInsercion.getTxtError().getText()), Float.parseFloat(pnlInsercion.getTxtError().getText()));
+                                controlador.Metodo();
+                                tabla.crearModelo(controlador.getFilas());
+                                tabla.getModeloTabla().fireTableDataChanged();
+                                tabla.setVisible(true);
+                            }
+                            else{
+                                throw new CasillaVaciaException();
+                            }
+                            
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(getContentPane(), 
+								"Cadena inválida\nIntente de nuevo",
+								"ERROR",
+								JOptionPane.ERROR_MESSAGE);
+                        } catch(CasillaVaciaException e1){
+                            JOptionPane.showMessageDialog(getContentPane(), 
+								e1.getMessage(),
+								"ERROR",
+								JOptionPane.ERROR_MESSAGE);
+                        }
+                         //To change body of generated methods, choose Tools | Templates.
                     }
 
                     @Override

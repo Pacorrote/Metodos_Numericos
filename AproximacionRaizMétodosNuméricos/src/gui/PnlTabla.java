@@ -29,13 +29,14 @@ public class PnlTabla extends JPanel{
     @Override
     public void setVisible(boolean aFlag) {
         super.setVisible(aFlag);
-        if(isVisible()){
+        if(aFlag){
             updateUI();
             setPreferredSize(new Dimension(550, 400));
             tabla = new JTable(this.modeloTabla);
             tabla.setFont(new Font("Verdana", 0, 18));
             tabla.setShowGrid(true);
-            tabla.setForeground(new Color(117, 78, 231));
+            tabla.setForeground(Color.ORANGE);
+            
             JScrollPane jS = new JScrollPane(tabla);
             jS.setPreferredSize(new Dimension(540, 467));
             add(jS);
@@ -48,6 +49,16 @@ public class PnlTabla extends JPanel{
         }
         //To change body of generated methods, choose Tools | Templates.
     }
+
+    public ModelTabla1 getModeloTabla() {
+        return modeloTabla;
+    }
+
+    public void setModeloTabla(ModelTabla1 modeloTabla) {
+        this.modeloTabla = modeloTabla;
+    }
+    
+    
         
         
 
