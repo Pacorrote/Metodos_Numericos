@@ -6,6 +6,7 @@ public class ColumnasNewtonRaphson {
 	private Float fxi;
 	private Float diffxi;
 	private Float xj;
+	private Float errorAprox;
 	
 	public ColumnasNewtonRaphson() {
 		// TODO Auto-generated constructor stub
@@ -42,11 +43,20 @@ public class ColumnasNewtonRaphson {
 	public Float getXi() {
 		return xi;
 	}
+	
+
+	public Float getErrorAprox() {
+		return errorAprox;
+	}
+
+	public void setErrorAprox(Float errorAprox) {
+		this.errorAprox = errorAprox;
+	}
 
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return String.format("%f\t%f\t%f\t%f", this.xi, this.fxi, this.diffxi, this.xj);
+		return String.format("%f\t%f\t%f\t%f\t%f por", this.xi, this.fxi, this.diffxi, this.xj, this.errorAprox);
 	}
 	
 	

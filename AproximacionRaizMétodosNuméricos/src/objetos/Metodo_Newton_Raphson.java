@@ -25,8 +25,9 @@ public class Metodo_Newton_Raphson {
 		aux.setFxi(funcion());
 		aux.setDiffxi(derivadaFuncion());
 		aux.setXj(Xj());
+		aux.setErrorAprox(error()*100);
 		filas.add(aux);
-		if(error()>error) {
+		if(aux.getErrorAprox()>error) {
 			float aux = this.aux.getXj();
 			this.aux = new ColumnasNewtonRaphson(aux);
 			this.puntoI = this.aux.getXi();
@@ -62,7 +63,7 @@ public class Metodo_Newton_Raphson {
 	public void imprimir() {
 		System.out.println("   xi\t   f(xi)\t   diff(xi)\t   xi+1\t   error");
 		for (ColumnasNewtonRaphson columnasNewtonRaphson : filas) {
-			System.out.println(columnasNewtonRaphson.toString()+"\t"+error());
+			System.out.println(columnasNewtonRaphson.toString());
 		}
 	}
 	
