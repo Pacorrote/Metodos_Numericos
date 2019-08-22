@@ -51,6 +51,14 @@ public class Metodo_Newton_Raphson {
 		}
 	}
 	
+	public Float getError() {
+		return error;
+	}
+
+	public void setError(Float error) {
+		this.error = error;
+	}
+
 	public void imprimir() {
 		System.out.println("   xi\t   f(xi)\t   diff(xi)\t   xi+1");
 		for (ColumnasNewtonRaphson columnasNewtonRaphson : filas) {
