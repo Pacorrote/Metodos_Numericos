@@ -51,13 +51,13 @@ public class Metodo_Newton_Raphson {
 			return this.puntoI+0.0000001f;
 		}
 	}
-	
-	public Float getError() {
-		return error;
+
+	public ArrayList<ColumnasNewtonRaphson> getFilas() {
+		return filas;
 	}
 
-	public void setError(Float error) {
-		this.error = error;
+	public void setFilas(ArrayList<ColumnasNewtonRaphson> filas) {
+		this.filas = filas;
 	}
 
 	public void imprimir() {
