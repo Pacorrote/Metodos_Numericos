@@ -60,9 +60,9 @@ public class Metodo_Newton_Raphson {
 	}
 
 	public void imprimir() {
-		System.out.println("   xi\t   f(xi)\t   diff(xi)\t   xi+1");
+		System.out.println("   xi\t   f(xi)\t   diff(xi)\t   xi+1\t   error");
 		for (ColumnasNewtonRaphson columnasNewtonRaphson : filas) {
-			System.out.println(columnasNewtonRaphson.toString());
+			System.out.println(columnasNewtonRaphson.toString()+"\t"+error());
 		}
 	}
 	
