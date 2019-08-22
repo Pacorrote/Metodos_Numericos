@@ -1,6 +1,5 @@
 package gui;
 
-import interfaces.Calculable;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -10,12 +9,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import objetos.Metodo_Newton_Raphson;
+import interfaces.Clickeable;
 
 public class VentanaPrin1 extends JFrame{
 
 	private PnlAbajo pnlAbajo = new PnlAbajo();
 	private PnlInsercion pnlInsercion = new PnlInsercion();
-	private PnlTabla tabla;
+	private PnlTabla tabla = new PnlTabla();
 	private Metodo_Newton_Raphson controlador;
 	
 	public VentanaPrin1() {
@@ -24,13 +24,33 @@ public class VentanaPrin1 extends JFrame{
 		super.setBackground(Color.orange);
 		super.setLayout(new BorderLayout(8, 1));
 		super.setLocationRelativeTo(null);
-                controlador = new Metodo_Newton_Raphson(Float.parseFloat(pnlInsercion.getTxtPuntoI().getText()), Float.parseFloat(pnlInsercion.getTxtError().getText()));
-                tabla = new PnlTabla(controlador.getFilas());
-                pnlInsercion.setFuego(new Calculable() {
+                pnlInsercion.setFuego( new Clickeable() {
                     @Override
                     public void buscarRaiz() {
-                      //To change body of generated methods, choose Tools | Templates.
-                      controlador.Metodo();
+                        controlador = new Metodo_Newton_Raphson(Float.parseFloat(pnlInsercion.getTxtError().getText()), Float.parseFloat(pnlInsercion.getTxtError().getText()));
+                        tabla.crearModelo(controlador.getFilas());
+                        tabla.setVisible(true); //To change body of generated methods, choose Tools | Templates.
+                    }
+
+                    @Override
+                    public void limpiar() {
+                        //To change body of generated methods, choose Tools | Templates.
+                    }
+                }
+                    //To change body of generated methods, choose Tools | Templates
+                        
+                );
+                pnlAbajo.setClick(new Clickeable() {
+                    @Override
+                    public void buscarRaiz() {
+                         //To change body of generated methods, choose Tools | Templates.
+                    }
+
+                    @Override
+                    public void limpiar() {
+                        tabla.setVisible(false);
+                        pnlInsercion.getTxtError().setText("");
+                        pnlInsercion.getTxtPuntoI().setText("");
                     }
                 });
 		super.add(pnlInsercion, BorderLayout.NORTH);

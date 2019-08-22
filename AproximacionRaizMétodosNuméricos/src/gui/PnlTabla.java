@@ -18,20 +18,37 @@ public class PnlTabla extends JPanel{
 	private ModelTabla1 modeloTabla;
 	
 
-	public PnlTabla(ArrayList<ColumnasNewtonRaphson> lista) {
+	public PnlTabla() {
 		// TODO Auto-generated constructor stub
-		this.modeloTabla = new ModelTabla1(lista);
-		super.setPreferredSize(new Dimension(550, 400));
-		tabla = new JTable(this.modeloTabla);
-		tabla.setFont(new Font("Verdana", 0, 18));
-		tabla.setShowGrid(true);
-		tabla.setForeground(new Color(117, 78, 231));
-		JScrollPane jS = new JScrollPane(tabla);
-		jS.setPreferredSize(new Dimension(540, 467));
-		super.add(jS);
-		super.setBackground(Color.WHITE);
-		super.setVisible(false);
-		updateUI();
 	}
+        
+        public void crearModelo(ArrayList<ColumnasNewtonRaphson> lista){
+            this.modeloTabla = new ModelTabla1(lista);
+        }
+
+    @Override
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+        if(isVisible()){
+            updateUI();
+            setPreferredSize(new Dimension(550, 400));
+            tabla = new JTable(this.modeloTabla);
+            tabla.setFont(new Font("Verdana", 0, 18));
+            tabla.setShowGrid(true);
+            tabla.setForeground(new Color(117, 78, 231));
+            JScrollPane jS = new JScrollPane(tabla);
+            jS.setPreferredSize(new Dimension(540, 467));
+            add(jS);
+            setBackground(Color.WHITE);
+            updateUI();
+        }
+        else{
+            removeAll();
+            updateUI();
+        }
+        //To change body of generated methods, choose Tools | Templates.
+    }
+        
+        
 
 }

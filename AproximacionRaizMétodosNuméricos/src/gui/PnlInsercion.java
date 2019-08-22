@@ -1,6 +1,5 @@
 package gui;
 
-import interfaces.Calculable;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import interfaces.Clickeable;
 
 public class PnlInsercion extends JPanel{
     
@@ -20,13 +20,13 @@ public class PnlInsercion extends JPanel{
 	private JButton btnCalcular;
 	private JTextField txtPuntoI;
 	private JTextField txtError;
-        private Calculable fuego;
+        private Clickeable fuego;
 
-    public Calculable getFuego() {
+    public Clickeable getFuego() {
         return fuego;
     }
 
-    public void setFuego(Calculable fuego) {
+    public void setFuego(Clickeable fuego) {
         this.fuego = fuego;
     }
 
