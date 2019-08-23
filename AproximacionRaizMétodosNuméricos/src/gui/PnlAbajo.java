@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 public class PnlAbajo extends JPanel{
 	
 	private JButton limpiar;
-        private Clickeable click;
+                   private Clickeable click;
 	
 	public PnlAbajo() {
 		// TODO Auto-generated constructor stub
