@@ -15,7 +15,7 @@ import interfaces.Clickeable;
 
 public class PnlInsercion extends JPanel{
     
-        private JLabel lblPuntoI;
+    private JLabel lblPuntoI;
 	private JLabel lblError;
 	private JButton btnCalcular;
 	private JTextField txtPuntoI;
@@ -61,7 +61,9 @@ public class PnlInsercion extends JPanel{
                     }
                 });
 		this.txtPuntoI = new JTextField(8);
+		this.txtPuntoI.setHorizontalAlignment(JTextField.RIGHT);
 		this.txtError = new JTextField(8);
+		this.txtError.setHorizontalAlignment(JTextField.RIGHT);
 		Font fuente = new Font("Verdana", 0, 14);
                 this.lblPuntoI.setFont(fuente);
 		this.lblError.setFont(fuente);

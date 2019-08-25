@@ -36,13 +36,13 @@ public class Metodo_Newton_Raphson {
 	}
 	
 	private Float funcion() {
-                    return (float) Math.sin(Math.pow(this.puntoI, 3)+8);
-                    //return (float) (Math.exp(-this.puntoI)-this.puntoI);
+		//return (float) Math.sin(Math.pow(this.puntoI, 3)+8);
+		return (float) (Math.exp(-this.puntoI)-this.puntoI);
 	}
 	
 	private Float derivadaFuncion() {
-                                   return (float) (3*Math.pow(this.puntoI, 2)*Math.cos(Math.pow(this.puntoI, 3)+8));
-		//return (float) (-Math.exp(-this.puntoI)-1);
+		//return (float) (3*Math.pow(this.puntoI, 2)*Math.cos(Math.pow(this.puntoI, 3)+8));
+		return (float) (-Math.exp(-this.puntoI)-1);
 	}
 	
 	private Float Xj() {
