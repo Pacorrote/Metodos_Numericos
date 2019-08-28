@@ -25,7 +25,7 @@ public class VentanaPrin1 extends JFrame{
                     @Override
                     public void buscarRaiz() {
                         try {
-                            if(!pnlInsercion.getTxtError().getText().isEmpty() || !pnlInsercion.getTxtError().getText().isEmpty()){
+                            if(!pnlInsercion.getTxtPuntoI().getText().isEmpty() || !pnlInsercion.getTxtError().getText().isEmpty()){
                                 controlador = new Metodo_Newton_Raphson(Float.parseFloat(pnlInsercion.getTxtError().getText()), Float.parseFloat(pnlInsercion.getTxtError().getText()));
                                 controlador.Metodo();
                                 tabla.crearModelo(controlador.getFilas());
