@@ -115,6 +115,12 @@ public class MetodoGaussSeidel {
     
     public Float [] metodoGaussSeidel(){
         int iteraciones = 0;
+        if(verificarCondicion()) {
+        	System.out.println("¡VA A CONVERGER!\n");
+        }
+        else {
+        	System.out.println("¡NO VA A CONVERGER!\n");
+        }
         do{
             if(iteraciones > 0){
                 errorEstimado = errorAproximado(vectorDiferencia());
@@ -166,5 +172,21 @@ public class MetodoGaussSeidel {
         }
         System.out.println("Norma: " + Math.sqrt(norma) +"\n");
         return (float) Math.sqrt(norma);
+    }
+    
+    private Boolean verificarCondicion() {
+    	Boolean verificado = true;
+    	for (int i = 0; i < matrizQ.length && verificado; i++) {
+			verificado = Math.abs(matrizQ[i][i]) > sumaFila(matrizR[i]);
+		}
+    	return verificado;
+    }
+    
+    public static Float sumaFila(Float vector[]) {
+    	Float suma = (float) 0;
+    	for (int i = 0; i < vector.length; i++) {
+			suma += Math.abs(vector[i]);
+		}
+    	return suma;
     }
 }

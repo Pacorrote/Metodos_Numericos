@@ -31,7 +31,12 @@ public class SolucionadorSistemasEcuaciones {
             {-0f, 3f, -1f, 8f, 15f}
         };
         
-        Float vectorInicial [] = {0f, 0f, 0f, 0f};
+        Float matriz1 [][] = {
+        		{11f, -9f, 99f},
+        		{11f, 13f, 286f}
+        };
+        
+        Float vectorInicial [] = {0f, 0f};
         
 //        MetodoJacobi metodo = new MetodoJacobi(matriz, vectorInicial, 100, (float) 0.01);
 //        metodo.imprimirQ();
@@ -40,7 +45,7 @@ public class SolucionadorSistemasEcuaciones {
 //        System.out.println("");
 //        Float soluciones [] = metodo.metodoJacobi();
 
-        MetodoGaussSeidel metodo = new MetodoGaussSeidel(matriz, vectorInicial, 100, (float) 0.01);
+        MetodoGaussSeidel metodo = new MetodoGaussSeidel(matriz1, vectorInicial, 100, (float) 0.01);
         metodo.imprimirQ();
         metodo.imprimirR();
         metodo.imprimirVectorResultado();
