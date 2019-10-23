@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import enums.Modo;
+import javax.crypto.Mac;
 import objetos.Fraccion;
 import objetos.Resolucion;
 
@@ -47,6 +48,9 @@ public class InterfazPrin extends JFrame{
 	private Fraccion [][] reMatrizFrac;
 	private Fraccion solFrac [];
 	private Double solDec [];
+        private Float matrizDecDelta [][];
+        private Fraccion matrizFracDelta [][];
+        public static final Float CRITERIOSINGULARIDAD = (float) 0.2;
 	
 
 	public InterfazPrin() {
@@ -126,6 +130,7 @@ public class InterfazPrin extends JFrame{
 						ArrayList<String> procesos = new ArrayList<>();
 						gauss(procesos);
 						soluciones(procesos);
+                                                sistemaSingular(procesos);
 						pnlProc.setMatrices(procesos);
 						pnlProc.setVisible(true);
 					} catch (NumberFormatException e2) {
@@ -198,12 +203,24 @@ public class InterfazPrin extends JFrame{
 	
 	public void gauss(ArrayList <String> cadenas) {
 		if(decimal.isSelected()) {
-			reMatrizDec = Resolucion.gauss(matrizDec, cadenas);
+			reMatrizDec = Resolucion.gaussSimpleInferior(matrizDec, cadenas);
 			Resolucion.imprimirMatriz(reMatrizDec);
 		}
 		else if(fraccion.isSelected()) {
 			Resolucion.imprimirMatriz(matrizFrac);
-			reMatrizFrac = Resolucion.gauss(matrizFrac, cadenas);
+			reMatrizFrac = Resolucion.gaussSimpleInferior(matrizFrac, cadenas);
+			Resolucion.imprimirMatriz(reMatrizFrac);
+		}
+	}
+        
+        public void gaussJordan(ArrayList <String> cadenas) {
+		if(decimal.isSelected()) {
+			reMatrizDec = Resolucion.gaussJordan(matrizDec, cadenas);
+			Resolucion.imprimirMatriz(reMatrizDec);
+		}
+		else if(fraccion.isSelected()) {
+			Resolucion.imprimirMatriz(matrizFrac);
+			reMatrizFrac = Resolucion.gaussJordan(matrizFrac, cadenas);
 			Resolucion.imprimirMatriz(reMatrizFrac);
 		}
 	}
@@ -227,5 +244,110 @@ public class InterfazPrin extends JFrame{
 			}
 		}
 	}
+        
+//        private void soluciones(ArrayList <String> cadenas) {
+//		if(decimal.isSelected()) {
+//			solDec = new Double[variables];
+//			for (int i = 0; i < solDec.length; i++) {
+//				solDec[i] = reMatrizDec[i][reMatrizDec[i].length-1];
+//				cadenas.add("x" + (i+1) + ": " +solDec[i].toString());
+//			}
+//			
+//		}
+//		else if(fraccion.isSelected()) {
+//			solFrac = new Fraccion[variables];
+//			for (int i = 0; i < solFrac.length; i++) {
+//				solFrac[i] = new Fraccion(reMatrizFrac[i][reMatrizFrac[i].length-1]);
+//				cadenas.add("x" + (i+1) + ": " + solFrac[i].toString());
+//			}
+//		}
+//	}
+        
+        public void sistemaSingular(ArrayList<String> cadenas){
+            cadenas.add(sistemaSingular() ? "<html><center>Sistema singular<br>Es muy probable"
+                    + "<br>a que tenga multiples soluciones" : "<html><center>Sistema no singular"
+                            + "<br>Poco probable a que tenga multiples soluciones");
+        }
+        
+        public Boolean sistemaSingular(){
+            if(decimal.isSelected()) {
+                matrizDecDelta = new Float[variables][variables];
+                rellenarMatrizDecDelta();
+                Float determinante = Resolucion.determinante(matrizDecDelta);
+                System.out.println(determinante);
+                determinante = escalarDeterminante(determinante);
+                System.out.println(determinante);
+                return Math.abs(determinante) < CRITERIOSINGULARIDAD;
+            }
+       	    else if(fraccion.isSelected()) {
+		matrizFracDelta = new Fraccion[variables][variables];
+                rellenarMatrizFracDelta();
+                Fraccion determinante = Resolucion.determinante(matrizFracDelta);
+                System.out.println(determinante);
+                determinante = escalarDeterminante(determinante);
+                System.out.println(determinante);
+                return Math.abs(determinante.toDecimal()) < CRITERIOSINGULARIDAD;
+            }
+            return false;
+        }
+        
+        private void rellenarMatrizDecDelta(){
+            for (int i = 0; i < variables; i++) {
+                for (int j = 0; j < variables; j++) {
+                    matrizDecDelta[i][j] = matrizDec[i][j].floatValue();
+                }
+            }
+        }
+        
+        private void rellenarMatrizFracDelta(){
+            for (int i = 0; i < variables; i++) {
+                for (int j = 0; j < variables; j++) {
+                    matrizFracDelta[i][j] = new Fraccion(matrizFrac[i][j]);
+                }
+            }
+        }
+        
+        private Float escalarDeterminante(Float determinate){
+           ArrayList <Float> arregloMaxValores = new ArrayList<>();
+            for (int i = 0; i < matrizDecDelta.length; i++) {
+                arregloMaxValores.add(valorMaximo(matrizDecDelta[i]));
+            }
+            for (Float arregloMaxValore : arregloMaxValores) {
+                determinate /= arregloMaxValore;
+            }
+            return determinate;
+        }
+        
+        private Fraccion escalarDeterminante(Fraccion determinante){
+            ArrayList<Fraccion> arregloMaxValores = new ArrayList<>();
+            for (int i = 0; i < matrizFracDelta.length; i++) {
+                arregloMaxValores.add(valorMaximo(matrizFracDelta[i]));
+            }
+            for (Fraccion arregloMaxValore : arregloMaxValores) {
+                determinante = Fraccion.dividir(determinante, arregloMaxValore);
+            }
+            return determinante;
+        }
+        
+        public static Float valorMaximo(Float [] arreglo){
+            Float numMayor = arreglo[0];
+            for (int i = 1; i < arreglo.length; i++) {
+                if(numMayor < arreglo[i]){
+                    numMayor = arreglo[i];
+                }
+            }
+            return numMayor;
+        }
+        
+        public static Fraccion valorMaximo(Fraccion [] arreglo){
+            Fraccion numMayor = arreglo[0];
+            for (int i = 1; i < arreglo.length; i++) {
+                if(numMayor.toDecimal() < arreglo[i].toDecimal()){
+                    numMayor = arreglo[i];
+                }
+            }
+            return numMayor;
+        }
 	
+        
 }

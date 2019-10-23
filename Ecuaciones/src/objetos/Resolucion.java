@@ -70,6 +70,26 @@ public abstract class Resolucion {
 			}
         }
     }
+        
+        private static void pivoteAUnoInvertido(Double [][] matriz, int fila){
+        Double divisor = matriz[fila][fila];
+        if(divisor != 0) {
+        	for (int i = matriz[fila].length-1; i >= 0; i--) {
+                matriz[fila][i] = matriz[fila][i]/divisor;
+            }
+        }
+        else {
+        	Double filaVector [] = matriz[fila];
+        	for (int i = fila-2; i >= 0; i--) {
+				if(matriz[i][fila]!=0) {
+					matriz[fila]=matriz[i];
+					matriz[i]=filaVector;
+					pivoteAUno(matriz, fila);
+					break;
+				}
+			}
+        }
+    }
 	
 	private static void pivoteAUno(Fraccion[][] matriz, int fila) {
 		Fraccion divisor = new Fraccion(matriz[fila][fila].getNumerador(), matriz[fila][fila].getDenominador());
@@ -86,6 +106,26 @@ public abstract class Resolucion {
 		}
 		else {
 			for (int i = 0; i < matriz[fila].length; i++) {
+				matriz[fila][i] = Fraccion.dividir(matriz[fila][i], divisor);
+			}
+		}	
+	}
+        
+        private static void pivoteAUnoInvertida(Fraccion[][] matriz, int fila) {
+		Fraccion divisor = new Fraccion(matriz[fila][fila].getNumerador(), matriz[fila][fila].getDenominador());
+		if(divisor.getNumerador()==0) {
+			Fraccion filaVector [] = matriz[fila];
+			for (int i = matriz[fila].length-1; i >= 0; i--) {
+				if(matriz[i][fila].getNumerador() != 0) {
+					matriz[fila] = matriz[i];
+					matriz[i] = filaVector;
+					pivoteAUno(matriz, fila);
+					break;
+				}
+			}
+		}
+		else {
+			for (int i = fila-2; i >= 0; i--) {
 				matriz[fila][i] = Fraccion.dividir(matriz[fila][i], divisor);
 			}
 		}	
@@ -167,6 +207,30 @@ public abstract class Resolucion {
         imprimirMatriz(matrizGaussJordan);
         return matrizGaussJordan;
     }
+        public static Double [][] gaussJordan(Double matriz [][], ArrayList<String> cadenas){
+        Double [][] matrizGaussJordan = gauss(matriz, cadenas);
+        int i1=2;
+        for (int i = matrizGaussJordan.length-1; i >= 0; i--) {
+            reduccion(matrizGaussJordan, i1, i);
+            i1++;
+            obtenerMatrizCadena(matrizGaussJordan, cadenas);
+        }
+        imprimirMatriz(matrizGaussJordan);
+        return matrizGaussJordan;
+    }
+        
+        public static Double [][] gaussSimpleInferior(Double matriz [][], ArrayList<String> cadenas){
+        Double [][] matrizGaussSimple = copiarMatriz(matriz);
+        int i1=2;
+        for (int i = matrizGaussSimple.length-1; i >= 0; i--) {
+            pivoteAUnoInvertido(matriz, i);
+            reduccion(matrizGaussSimple, i1, i);
+            i1++;
+            obtenerMatrizCadena(matrizGaussSimple, cadenas);
+        }
+        imprimirMatriz(matrizGaussSimple);
+        return matrizGaussSimple;
+    }
 	
 	public static Fraccion [][] gaussJordan(Fraccion matriz [][]){
         Fraccion [][] matrizGaussJordan = gauss(matriz);
@@ -177,6 +241,31 @@ public abstract class Resolucion {
         }
         imprimirMatriz(matrizGaussJordan);
         return matrizGaussJordan;
+    }
+        
+        public static Fraccion [][] gaussJordan(Fraccion matriz [][], ArrayList<String> cadenas){
+        Fraccion [][] matrizGaussJordan = gauss(matriz, cadenas);
+        int i1=2;
+        for (int i = matrizGaussJordan.length-1; i >= 0; i--) {
+            reduccion(matrizGaussJordan, i1, i);
+            i1++;
+            obtenerMatrizCadena(matrizGaussJordan, cadenas);
+        }
+        imprimirMatriz(matrizGaussJordan);
+        return matrizGaussJordan;
+    }
+        
+        public static Fraccion [][] gaussSimpleInferior(Fraccion matriz [][], ArrayList<String> cadenas){
+        Fraccion [][] matrizGaussSimple = copiarMatriz(matriz);
+        int i1=2;
+        for (int i = matrizGaussSimple.length-1; i >= 0; i--) {
+            pivoteAUno(matriz, i);
+            reduccion(matrizGaussSimple, i1, i);
+            i1++;
+            obtenerMatrizCadena(matrizGaussSimple, cadenas);
+        }
+        imprimirMatriz(matrizGaussSimple);
+        return matrizGaussSimple;
     }
 	
 	private static Double [][] gauss(Double [][] matriz) {
@@ -276,6 +365,78 @@ public abstract class Resolucion {
     		return suma;
     	}
 
+    }
+    
+    public static Float determinante(Float [][] matriz){
+    	Float det;
+    	if(matriz.length==2)
+    	{
+    		det=(matriz[0][0]*matriz[1][1])-(matriz[1][0]*matriz[0][1]);
+    		return det;
+    	}
+    	else{
+    		Float suma=0f;
+    		for(int i=0; i<matriz.length; i++){
+    			Float [][] nm=new Float[matriz.length-1][matriz.length-1];
+    			for(int j=0; j<matriz.length; j++){
+    				if(j!=i){
+    					for(int k=1; k<matriz.length; k++){
+    						int indice=0;
+    						if(j<i){
+    							indice=j;
+    						}
+    						else if(j>i){
+    							indice=j-1;
+    						}
+    						nm[indice][k-1]=matriz[j][k];
+    					}
+    				}
+    			}
+    			if(i%2==0){
+    				suma+=matriz[i][0] * determinante(nm);
+    			}
+    			else{
+    				suma-=matriz[i][0] * determinante(nm);
+    			}
+    		}
+    		return suma;
+    	}
+    }
+    
+     public static Fraccion determinante(Fraccion [][] matriz){
+    	Fraccion det;
+    	if(matriz.length==2)
+    	{
+    		det=Fraccion.restar((Fraccion.multiplicar(matriz[0][0], matriz[1][1])),(Fraccion.multiplicar(matriz[1][0], matriz[0][1])));
+    		return det;
+    	}
+    	else{
+    		Fraccion suma=new Fraccion(0, 1);
+    		for(int i=0; i<matriz.length; i++){
+    			Fraccion [][] nm = new Fraccion[matriz.length-1][matriz.length-1];
+    			for(int j=0; j<matriz.length; j++){
+    				if(j!=i){
+    					for(int k=1; k<matriz.length; k++){
+    						int indice=0;
+    						if(j<i){
+    							indice=j;
+    						}
+    						else if(j>i){
+    							indice=j-1;
+    						}
+    						nm[indice][k-1]= new Fraccion(matriz[j][k]);
+    					}
+    				}
+    			}
+    			if(i%2==0){
+    				suma = Fraccion.sumar(suma, Fraccion.multiplicar(matriz[i][0], determinante(nm)));
+    			}
+    			else{
+    				suma = Fraccion.restar(suma, Fraccion.multiplicar(matriz[i][0], determinante(nm)));
+    			}
+    		}
+    		return suma;
+    	}
     }
 
 }

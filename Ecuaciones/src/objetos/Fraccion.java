@@ -64,21 +64,29 @@ public class Fraccion {
 		int a = 0;
 		do {
 			if(getNumerador()%PRIMOS[a]==0 && getDenominador()%PRIMOS[a]==0) {
-				setNumerador(getNumerador()/PRIMOS[a]);
-				setDenominador(getDenominador()/PRIMOS[a]);
+				setNumerador(getNumerador() / PRIMOS[a]);
+				setDenominador(getDenominador() / PRIMOS[a]);
 			}
 			else {
 				a++;
 			}
-		} while (a<PRIMOS.length);
+		} while (a < PRIMOS.length);
 	}
 	
 //	public Double toDecimal() {
-//		return (double) (this.getNumerador()/this.getDenominador());
+//		return  (double)(this.numerador) / (double) (this.denominador);
+//	}
+        
+//        public static Double toDecimal(Fraccion fraccion) {
+//		return  (double)(fraccion.numerador) / (double) (fraccion.denominador);
 //	}
 //	
-//	public Float toDecimal() {
-//		return (float) (this.numerador/this.denominador);
+	public Float toDecimal() {
+		return  (float)(this.numerador) / (float) (this.denominador);
+	}
+        
+//        public static Float toDecimal(Fraccion fraccion) {
+//		return  (float)(fraccion.numerador) / (float) (fraccion.denominador);
 //	}
 	
 	public void agregar(Fraccion f1) {
@@ -122,7 +130,31 @@ public class Fraccion {
 		r.simplificar();
 		return r;
 	}
-	
+        
+        public static Fraccion potencia(Fraccion fraccion, int potencia){
+            Fraccion r = new Fraccion(
+                                (int) Math.pow(fraccion.getNumerador(), potencia),
+                               (int) Math.pow(fraccion.getDenominador(), potencia)
+                        );
+            r.simplificar();
+            return r;
+        }
+        
+        public static Fraccion raizCuad(Fraccion fraccion){
+            Fraccion r = new Fraccion(
+                                (int) Math.sqrt(fraccion.getNumerador()),
+                                (int) Math.sqrt(fraccion.getDenominador())
+                        );
+            return r;
+        }
+        
+        public static Fraccion raizCubica(Fraccion fraccion){
+            Fraccion r = new Fraccion(
+                                (int) Math.cbrt(fraccion.getNumerador()),
+                                (int) Math.cbrt(fraccion.getDenominador())
+                        );
+            return r;
+        }
 	
 	@Override
 	public boolean equals(Object obj) {
