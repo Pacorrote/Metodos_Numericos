@@ -83,7 +83,7 @@ public class SumaRiemann {
         return resultado;
     }
     
-    private float sumaRiemannInf(){
+    protected float sumaRiemannInf(){
         float resultado = 0;
         for (float i = liIn; i < liSu && i < liSu - 0.01; i = i + (longitud / n)){
             resultado += exp(i) * (longitud / n);
@@ -91,7 +91,7 @@ public class SumaRiemann {
         return resultado;
     }
     
-    private float sumaRiemannSup(){
+    protected float sumaRiemannSup(){
         float resultado = 0;
         DecimalFormat formato = new DecimalFormat("#.##");
         for (float i = liIn + (longitud / n); Float.parseFloat(formato.format(i)) <= liSu; i = i + (longitud / n)){
@@ -100,7 +100,7 @@ public class SumaRiemann {
         return resultado;
     }
     
-    private float sumaRiemannpuntoMedio(){
+    protected float sumaRiemannpuntoMedio(){
         float resultado = 0;
         float punto1 = liIn;
         float punto2 = punto1 + (longitud / n);
