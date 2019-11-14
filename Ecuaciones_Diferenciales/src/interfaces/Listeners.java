@@ -13,6 +13,6 @@ import enums.Soluciones;
  */
 public interface Listeners {
     
-    public void solucionarEcOD(Soluciones solucion);
+    public void solucionarEcOD(Soluciones solucion) throws NumberFormatException;
     
 }

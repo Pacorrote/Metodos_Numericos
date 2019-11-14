@@ -57,7 +57,7 @@ public class PanelDatosEnt extends JPanel{
             etiquetas[i] = new JLabel(ETIQUETAS[i]);
         }
         for (int i = 0; i < camposDatos.length; i++) {
-            camposDatos[i] = new JTextField(17);
+            camposDatos[i] = new JTextField(10);
             camposDatos[i].setHorizontalAlignment(JTextField.RIGHT);
         }
         datos.add(etiquetas[0]);
@@ -79,7 +79,12 @@ public class PanelDatosEnt extends JPanel{
             opcion[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    listener.solucionarEcOD(Soluciones.values()[aux]);
+                	try {
+                		listener.solucionarEcOD(Soluciones.values()[aux]);
+					} catch (NumberFormatException e2) {
+						// TODO: handle exception
+					}
+                    
                 }
             });
             tipoSolucion.add(opcion[i]);

@@ -15,6 +15,8 @@ public class Columnas_tabla {
     private double yi;
     private double y;
     private double error;
+    private double predictor;
+    private double corrector;
 
     public double getX() {
         return x;
@@ -47,6 +49,21 @@ public class Columnas_tabla {
     public void setError(double error) {
         this.error = error;
     }
-    
+
+	public double getPredictor() {
+		return predictor;
+	}
+
+	public void setPredictor(double predictor) {
+		this.predictor = predictor;
+	}
+
+	public double getCorrector() {
+		return corrector;
+	}
+
+	public void setCorrector(double corrector) {
+		this.corrector = corrector;
+	}
     
 }

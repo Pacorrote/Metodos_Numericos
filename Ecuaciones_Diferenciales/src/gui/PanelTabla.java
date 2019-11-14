@@ -12,7 +12,8 @@ import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import objetos.ModeloTabla;
+import objetos.ModeloTablaEuler;
+import objetos.ModeloTablaHeun;
 
 /**
  *
@@ -20,8 +21,9 @@ import objetos.ModeloTabla;
  */
 public class PanelTabla extends JPanel{
     
-    private ModeloTabla modelo = new ModeloTabla(null, null);
-    private JTable tablaPuntos = new JTable(modelo);
+    private ModeloTablaEuler modelo = new ModeloTablaEuler(null, null);
+    private ModeloTablaHeun modelo1 = new ModeloTablaHeun(null, null);
+    private JTable tablaPuntos = new JTable(modelo1);
 
     public PanelTabla() {
         super.setLayout(null);
@@ -34,16 +36,21 @@ public class PanelTabla extends JPanel{
         super.setBackground(Color.BLACK);
     }
 
-    public ModeloTabla getModelo() {
+    public ModeloTablaEuler getModelo() {
         return modelo;
     }
 
-    public void setModelo(ModeloTabla modelo) {
+    public void setModelo(ModeloTablaEuler modelo) {
         this.modelo = modelo;
     }
 
+	public ModeloTablaHeun getModelo1() {
+		return modelo1;
+	}
 
-    
+	public void setModelo1(ModeloTablaHeun modelo1) {
+		this.modelo1 = modelo1;
+	}
     
     
 }
