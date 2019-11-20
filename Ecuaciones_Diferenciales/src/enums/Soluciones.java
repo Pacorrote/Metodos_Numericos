@@ -11,4 +11,6 @@ package enums;
  */
 public enum Soluciones {
     Euler,
+    PuntoMedio,
+    Ralston
 }

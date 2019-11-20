@@ -7,7 +7,6 @@ package gui;
 
 import enums.Soluciones;
 import interfaces.Listeners;
-import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -17,9 +16,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.xml.bind.Marshaller;
 
 /**
  *
@@ -38,9 +35,11 @@ public class PanelDatosEnt extends JPanel{
     };
     private JLabel etiquetas [] = new JLabel[ETIQUETAS.length];
     private JTextField camposDatos [] = new JTextField[4];
-    private JRadioButton [] opcion = new JRadioButton[1];
+    private JRadioButton [] opcion = new JRadioButton[3];
     public static final String [] RADIOBUT = {
-        "Método de euler"
+        "Método de euler",
+        "Método del punto medio",
+        "Método de Ralston"
     };
     private Listeners listener;
 
@@ -80,6 +79,7 @@ public class PanelDatosEnt extends JPanel{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                 	try {
+                            System.out.println(Soluciones.values()[aux]);
                 		listener.solucionarEcOD(Soluciones.values()[aux]);
 					} catch (NumberFormatException e2) {
 						// TODO: handle exception

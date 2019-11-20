@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import objetos.Columnas_tabla;
 import objetos.HiloTabla;
+import objetos.ModeloTabla;
+import objetos.ModeloTablaEuler;
+import objetos.ModeloTablaHeun;
+import objetos.ModeloTablaPuntoMed;
+import objetos.ModeloTablaRalston;
 
 /**
  *
@@ -44,14 +49,35 @@ public class Frame extends JFrame{
             double yi = Double.parseDouble(pnlEnt.getCampoDato(1).getText());
             double h = Double.parseDouble(pnlEnt.getCampoDato(2).getText());
             double limSup = Double.parseDouble(pnlEnt.getCampoDato(3).getText());
+            ArrayList<Columnas_tabla> filas = new ArrayList<>();
+            ArrayList<String> iteraciones = new ArrayList<>();
+            HiloTabla hilo;
             
             switch(solucion){
                 case Euler:
-                    ArrayList<Columnas_tabla> filas = new ArrayList<>();
-                    ArrayList<String> iteraciones = new ArrayList<>();
-                    pnlTabla.getModelo1().setFilas(filas);
-                    pnlTabla.getModelo1().setIteraciones(iteraciones);
-                    HiloTabla hilo = new HiloTabla(x, yi, h, limSup, pnlTabla.getModelo1());
+                    ModeloTablaHeun heun = new ModeloTablaHeun(filas, iteraciones);
+                    ModeloTablaEuler euler = new ModeloTablaEuler(filas, iteraciones);
+                    pnlTabla.setModelo(euler);
+                    pnlTabla.setModelo1(heun);
+                    repaint();
+                    pnlTabla.updateUI();
+                    hilo = new HiloTabla(x, yi, h, limSup, pnlTabla.getModelo());
+                    hilo.start();
+                    break;
+                case PuntoMedio:
+                    ModeloTablaPuntoMed puntoMed = new ModeloTablaPuntoMed(filas, iteraciones);
+                    pnlTabla.setModelo2(puntoMed);
+                    repaint();
+                    pnlTabla.updateUI();
+                    hilo = new HiloTabla(x, yi, h, limSup, pnlTabla.getModelo2());
+                    hilo.start();
+                    break;
+                case Ralston:
+                    ModeloTablaRalston ralston = new ModeloTablaRalston(filas, iteraciones);
+                    pnlTabla.setModelo3(ralston);
+                    repaint();
+                    pnlTabla.updateUI();
+                    hilo = new HiloTabla(x, yi, h, limSup, pnlTabla.getModelo3());
                     hilo.start();
                     break;
             }
