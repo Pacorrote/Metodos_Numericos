@@ -86,7 +86,10 @@ public class SumaRiemann {
     protected float sumaRiemannInf(){
         float resultado = 0;
         for (float i = liIn; i < liSu && i < liSu - 0.01; i = i + (longitud / n)){
-            resultado += exp(i) * (longitud / n);
+           // resultado += exp(i) * (longitud / n);
+            //resultado += cos(i) * (longitud / n);
+            //resultado += estadistico(i, 10, 2) * (longitud / n);
+            resultado += coscosx(i) * (longitud / n);
         }
         return resultado;
     }
@@ -94,8 +97,11 @@ public class SumaRiemann {
     protected float sumaRiemannSup(){
         float resultado = 0;
         DecimalFormat formato = new DecimalFormat("#.##");
-        for (float i = liIn + (longitud / n); Float.parseFloat(formato.format(i)) <= liSu; i = i + (longitud / n)){
-            resultado += exp(i) * (longitud / n);
+        for (float i = liIn + (longitud / n); (Float.parseFloat(formato.format(i)) - 0.01) <= liSu; i = i + (longitud / n)){
+           // resultado += exp(i) * (longitud / n);
+            //resultado += cos(i) * (longitud / n);
+            //resultado += estadistico(i, 10, 2) * (longitud / n);
+            resultado += coscosx(i) * (longitud / n);
         }
         return resultado;
     }
@@ -105,7 +111,10 @@ public class SumaRiemann {
         float punto1 = liIn;
         float punto2 = punto1 + (longitud / n);
         for (int i = 0; i < n; i++){
-            resultado += exp(puntoMedio(punto1, punto2)) * (longitud / n);
+           // resultado += exp(puntoMedio(punto1, punto2)) * (longitud / n);
+           // resultado += cos(puntoMedio(punto1, punto2)) * (longitud / n);
+            //resultado += estadistico(puntoMedio(punto1, punto2), 10, 2) * (longitud / n);
+            resultado += coscosx(puntoMedio(punto1, punto2)) * (longitud / n);
             punto1 += (longitud / n);
             punto2 += (longitud / n);
         }
@@ -118,6 +127,22 @@ public class SumaRiemann {
     
     public static float puntoMedio(float x1, float x2){
         return (x1 + x2) / 2;
+    }
+    
+    public static float cos(float x){
+        return (float) Math.cos(x);
+    }
+    
+    public static float estadistico(float x, float miu, float sigmaCuadrada){
+        float coeficiente = (float) ((float) 1 / Math.sqrt(2 * sigmaCuadrada * Math.PI));
+        float exponente = (float) Math.pow(x - miu, 2);
+        exponente /= 2 * sigmaCuadrada;
+        return (float) (coeficiente * Math.exp(-exponente));
+    }
+    
+    public static float coscosx(float x){
+        float sinx = (float) Math.sin(x);
+        return (float) (Math.cos(x) * Math.cos(sinx));
     }
     
 }

@@ -25,13 +25,13 @@ public class SumaTrapecio extends SumaRiemann{
         if(this.longitud == null){
             this.longitud = Math.abs(liIn - liSu);
         }
-        float resultado = (exp(this.liIn) / 2) * (longitud / n);
-        float inicio = this.liIn + (longitud / n);
+        float resultado = (coscosx(this.liIn)) * (longitud / n.floatValue());
+        float inicio = this.liIn + (longitud / n.floatValue());
         while(inicio < this.liSu){
-            resultado += exp(inicio) * (longitud / n);
-            inicio = inicio + (longitud / n);
+            resultado += coscosx(inicio) * (longitud / n.floatValue());
+            inicio = inicio + (longitud / n.floatValue());
         }
-        resultado += (exp(this.liSu) / 2) * (longitud / n);
+        resultado += (coscosx(this.liSu) / (float) 2) * (longitud / n.floatValue());
         return resultado;
     }
     
